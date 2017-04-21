@@ -1,10 +1,48 @@
 /* global d3 */
 
 function animatedLearning() {
-  const svg = d3.select('body').select('svg');
+  const width = 960;
+  const height = 500;
+
+  const yOffset = 50;
+  const innerHeight = 110;
+
+  const svg = d3.select('body').append('svg')
+    .attr('width', width)
+    .attr('height', height);
+
+  // draw the center line
+  svg.append('line')
+    .attr('x1', 10)
+    .attr('x2', 950)
+    .attr('y1', yOffset + (innerHeight / 2))
+    .attr('y2', yOffset + (innerHeight / 2))
+    .style('stroke', 'black')
+    .style('stroke-width', '0.75')
+    .style('fill', 'none')
+
+  // draw A elements label
+  svg.append('text')
+    .attr('x', width / 2)
+    .attr('y', yOffset)
+    .classed('A-color', true)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '12px')
+    .text('A elements');
+
+  // draw B elements label
+  svg.append('text')
+    .attr('x', width / 2)
+    .attr('y', yOffset + innerHeight)
+    .classed('B-color', true)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '12px')
+    .text('B elements');
+
+  
 
   const x = d3.scaleLinear()
-    .range([200, 500])
+    .range([0, width])
     .domain([0, 1]);
 
   const learningRate = 0.2;
