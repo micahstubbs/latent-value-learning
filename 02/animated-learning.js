@@ -83,14 +83,14 @@ function animatedLearning() {
   svg.selectAll('.A').data(As, d => d.id)
     .enter().append('circle')
       .attr('class', 'A A-color')
-      .attr('cx', 350)
+      .attr('cx', width / 2)
       .attr('cy', pointYOffset)
       .attr('r', 3);
 
   svg.selectAll('.B').data(Bs, d => d.id)
     .enter().append('circle')
       .attr('class', 'B B-color')
-      .attr('cx', 350)
+      .attr('cx', width / 2)
       .attr('cy', pointYOffset + pointYDistance)
       .attr('r', 3);
 
