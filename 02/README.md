@@ -1,5 +1,7 @@
 an [es2015](https://babeljs.io/learn-es2015/) iteration on the block [Latent Value Learning](https://bl.ocks.org/bricof/289866256121e20949abfc3a39d5805d) from [bricof](https://bl.ocks.org/bricof)
 
+this iteration draws a small `200px` by `384px` svg and shows it before any [viewBox](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox) scaling magic
+
 ---
 
 This is a cleaned and simplified version of a simulation / animation of latent variable learning used in the [Recommendation Systems section](http://algorithms-tour.stitchfix.com/#recommendation-systems) of the [Stitch Fix Algorithms Tour](http://algorithms-tour.stitchfix.com/).

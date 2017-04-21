@@ -1,50 +1,61 @@
 /* global d3 */
 
 function animatedLearning() {
-  const width = 960;
-  const height = 500;
+  const width = 384;
+  const height = 200;  // change the height and the rest of the layout responds ✨
 
-  const labelYOffset = 50;
-  const labelYDistance = 110;
+  const margin = {
+    top: height * 0.05,
+    bottom: height * 0.05,
+    left: 0,
+    right: 0
+  };
 
-  const pointYOffset = 83;
-  const pointYDistance  = 40;
+  // calculate some useful values for plot layout
+  const innerHeight = height - margin.top - margin.bottom;
+  const pointYDistance  = innerHeight * 0.3;
+  const pointYOffset = (innerHeight - pointYDistance) / 2;
+
+  const x = d3.scaleLinear()
+    .domain([0, 1])
+    .range([0, width]);
 
   const svg = d3.select('body').append('svg')
     .attr('width', width)
     .attr('height', height);
 
+  const g =  svg.append('g')
+    .attr('transform', `translate(${margin.left},${margin.top})`);
+
   // draw the center line
-  svg.append('line')
-    .attr('x1', 10)
-    .attr('x2', 950)
-    .attr('y1', labelYOffset + (labelYDistance / 2))
-    .attr('y2', labelYOffset + (labelYDistance / 2))
+  g.append('line')
+    .attr('x1', x.range()[0])
+    .attr('x2', x.range()[1])
+    .attr('y1', innerHeight / 2)
+    .attr('y2', innerHeight / 2)
     .style('stroke', 'black')
     .style('stroke-width', '0.75')
     .style('fill', 'none')
 
   // draw A elements label
-  svg.append('text')
+  g.append('text')
     .attr('x', width / 2)
-    .attr('y', labelYOffset)
+    .attr('y', pointYOffset * 0.4)
+    .attr('dy', '0.35em')
     .classed('A-color', true)
     .attr('text-anchor', 'middle')
     .attr('font-size', '12px')
     .text('A elements');
 
   // draw B elements label
-  svg.append('text')
+  g.append('text')
     .attr('x', width / 2)
-    .attr('y', labelYOffset + labelYDistance)
+    .attr('y', pointYOffset + pointYDistance + (pointYOffset * 0.6))
+    .attr('dy', '0.35em')
     .classed('B-color', true)
     .attr('text-anchor', 'middle')
     .attr('font-size', '12px')
     .text('B elements');
-
-  const x = d3.scaleLinear()
-    .domain([0, 1])
-    .range([0, width]);
 
   const learningRate = 0.2;
 
@@ -78,14 +89,14 @@ function animatedLearning() {
   //
   // construct circles
   //
-  svg.selectAll('.A').data(As, d => d.id)
+  g.selectAll('.A').data(As, d => d.id)
     .enter().append('circle')
       .attr('class', 'A A-color')
       .attr('cx', width / 2)
       .attr('cy', pointYOffset)
       .attr('r', 3);
 
-  svg.selectAll('.B').data(Bs, d => d.id)
+  g.selectAll('.B').data(Bs, d => d.id)
     .enter().append('circle')
       .attr('class', 'B B-color')
       .attr('cx', width / 2)
@@ -153,9 +164,9 @@ function animatedLearning() {
     //
     // draw and animate pair lines
     //
-    svg.selectAll('.pair').remove();
+    g.selectAll('.pair').remove();
 
-    svg.selectAll('.pair')
+    g.selectAll('.pair')
       .data(pairs)
       .enter().append('line')
         .attr('class', 'pair')
@@ -175,13 +186,13 @@ function animatedLearning() {
     //
     // animate circles
     //
-    svg.selectAll('.A')
+    g.selectAll('.A')
       .transition()
         .delay(delay)
         .duration(move)
         .attr('cx', d => x(d.nextPosition));
 
-    svg.selectAll('.B')
+    g.selectAll('.B')
       .transition()
         .delay(delay)
         .duration(move)
