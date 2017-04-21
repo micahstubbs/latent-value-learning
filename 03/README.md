@@ -1,6 +1,6 @@
-an [es2015](https://babeljs.io/learn-es2015/) iteration on the block [Latent Value Learning](https://bl.ocks.org/bricof/289866256121e20949abfc3a39d5805d) from [bricof](https://bl.ocks.org/bricof)
-
 this iteration draws a `384px` by `200px` svg and scales it up to `960px` wide by `500px` tall with the svg [viewBox](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox) attribute
+
+an iteration on the block [latent value learning | es2015](https://bl.ocks.org/micahstubbs/030ba96b8e1e2bb89982f86ce8376c5b) from [@micahstubbs](https://twitter.com/micahstubbs).  originally inspired by the block [Latent Value Learning](https://bl.ocks.org/bricof/289866256121e20949abfc3a39d5805d) from [bricof](https://bl.ocks.org/bricof)
 
 ---
 
