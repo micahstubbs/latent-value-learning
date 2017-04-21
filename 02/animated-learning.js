@@ -42,11 +42,9 @@ function animatedLearning() {
     .attr('font-size', '12px')
     .text('B elements');
 
-  
-
   const x = d3.scaleLinear()
-    .range([0, width])
-    .domain([0, 1]);
+    .domain([0, 1])
+    .range([0, width]);
 
   const learningRate = 0.2;
 
