@@ -4,8 +4,11 @@ function animatedLearning() {
   const width = 960;
   const height = 500;
 
-  const yOffset = 50;
-  const innerHeight = 110;
+  const labelYOffset = 50;
+  const labelYDistance = 110;
+
+  const pointYOffset = 83;
+  const pointYDistance  = 40;
 
   const svg = d3.select('body').append('svg')
     .attr('width', width)
@@ -15,8 +18,8 @@ function animatedLearning() {
   svg.append('line')
     .attr('x1', 10)
     .attr('x2', 950)
-    .attr('y1', yOffset + (innerHeight / 2))
-    .attr('y2', yOffset + (innerHeight / 2))
+    .attr('y1', labelYOffset + (labelYDistance / 2))
+    .attr('y2', labelYOffset + (labelYDistance / 2))
     .style('stroke', 'black')
     .style('stroke-width', '0.75')
     .style('fill', 'none')
@@ -24,7 +27,7 @@ function animatedLearning() {
   // draw A elements label
   svg.append('text')
     .attr('x', width / 2)
-    .attr('y', yOffset)
+    .attr('y', labelYOffset)
     .classed('A-color', true)
     .attr('text-anchor', 'middle')
     .attr('font-size', '12px')
@@ -33,7 +36,7 @@ function animatedLearning() {
   // draw B elements label
   svg.append('text')
     .attr('x', width / 2)
-    .attr('y', yOffset + innerHeight)
+    .attr('y', labelYOffset + labelYDistance)
     .classed('B-color', true)
     .attr('text-anchor', 'middle')
     .attr('font-size', '12px')
@@ -51,8 +54,9 @@ function animatedLearning() {
   const nBs = 10;
   const nPairs = 8;
 
+  //
   // create elements with latent values and initial positions
-
+  //
   const As = [];
   for (let i = 0; i < nAs; i += 1) {
     As.push({ 
@@ -73,25 +77,26 @@ function animatedLearning() {
     });
   }
 
+  //
   // construct circles
-
+  //
   svg.selectAll('.A').data(As, d => d.id)
     .enter().append('circle')
       .attr('class', 'A A-color')
       .attr('cx', 350)
-      .attr('cy', 230)
+      .attr('cy', pointYOffset)
       .attr('r', 3);
 
   svg.selectAll('.B').data(Bs, d => d.id)
     .enter().append('circle')
       .attr('class', 'B B-color')
       .attr('cx', 350)
-      .attr('cy', 270)
+      .attr('cy', pointYOffset + pointYDistance)
       .attr('r', 3);
 
-
+  //
   // simulation / animation loop
-
+  //
   d3.interval(() => {
     // *** SIMULATION ***
 
@@ -147,16 +152,17 @@ function animatedLearning() {
     const delay = 400;
     const move = 500;
 
+    //
     // draw and animate pair lines
-
+    //
     svg.selectAll('.pair').remove();
 
     svg.selectAll('.pair')
       .data(pairs)
       .enter().append('line')
         .attr('class', 'pair')
-        .attr('y1', 230)
-        .attr('y2', 270)
+        .attr('y1', pointYOffset)
+        .attr('y2', pointYOffset + pointYDistance)
         .style('stroke', '#000')
         .style('stroke-width', 0.25)
         .style('fill', 'none')
@@ -168,8 +174,9 @@ function animatedLearning() {
           .attr('x1', d => x(As[d.aId].nextPosition))
           .attr('x2', d => x(Bs[d.bId].nextPosition));
 
+    //
     // animate circles
-
+    //
     svg.selectAll('.A')
       .transition()
         .delay(delay)
@@ -184,8 +191,9 @@ function animatedLearning() {
 
     // *** end of svg animation code ***
 
+    //
     // prep next timestep
-
+    //
     As.forEach((d) => {
       d.currentPosition = d.nextPosition;
     });
